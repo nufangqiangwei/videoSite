@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="common-layout">
+    <meta name="referrer" content="no-referrer" />
+    <el-container>
+      <el-header height="75">
+        <heaterTitle/>
+      </el-header>
+      <el-main>
+        <indexVideoGirdPage/>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import heaterTitle from './components/title.vue'
+import indexVideoGirdPage from './components/indexVideoGirdPage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    heaterTitle, indexVideoGirdPage
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
