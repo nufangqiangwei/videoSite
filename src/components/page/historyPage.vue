@@ -28,9 +28,10 @@
   </div>
 </template>
 
+
 <script>
+
 import videoInfoCard from "@/components/videoInfoCard.vue";
-import {mapState} from "vuex";
 
 export default {
   name: 'indexVideoGirdPage',
@@ -43,11 +44,8 @@ export default {
       page: 1,
       size: 30,
       loading: false,
+      lastRequestBaseTime: 0,
     }
-  },
-  created() {
-    console.log('indexVideoGirdPage created')
-    this.getVideoList()
   },
   mounted() {
     console.log('indexVideoGirdPage mounted')
@@ -60,7 +58,7 @@ export default {
         // 判断最后一行是否显示
         let lastRow = document.querySelector('#videoContent').lastElementChild
         let lastRowRect = lastRow.getBoundingClientRect()
-        if (lastRowRect.top < window.innerHeight && !this.loading){
+        if (lastRowRect.top < window.innerHeight && !this.loading) {
           this.getVideoList()
         }
 
@@ -90,20 +88,6 @@ export default {
       return result
     },
 
-    ...mapState({
-      timeFilter: state => state.timeFilter
-    })
-  },
-  watch: {
-    timeFilter: {
-      handler: function (newVal, oldVal) {
-        console.log('timeFilter change', newVal, oldVal)
-          this.page = 1
-          this.videoList = []
-          this.getVideoList()
-      },
-      deep: true
-    }
   },
   methods: {
     groupArray(array, groupSize) {
@@ -116,54 +100,20 @@ export default {
     async getVideoList() {
       this.loading = true
       let queryParams = new URLSearchParams({
-        page: this.page,
-        size: this.size,
-        minDuration: this.timeFilter.min,
-        maxDuration: this.timeFilter.max,
+        lastRequestBaseTime: this.lastRequestBaseTime,
       }).toString()
-      let response = await fetch(`/video/list?${queryParams}`)
+      let response = await fetch('/history?' + queryParams)
       let data = await response.json()
-      this.videoList.push(...data)
-      this.page++
+      this.videoList.push(...data.data)
+      this.lastRequestBaseTime = data.baseTime
       this.loading = false
     }
-  }
+  },
 }
+
 
 </script>
 
-<style>
-.el-row {
-  margin-bottom: 20px;
+<style scoped>
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.el-col {
-  border-radius: 4px;
-}
-
-.bg-purple-dark {
-  background: #99a9bf;
-}
-
-.bg-purple {
-  background: #d3dce6;
-}
-
-.bg-purple-light {
-  background: #e5e9f2;
-}
-
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
-
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
-}
 </style>

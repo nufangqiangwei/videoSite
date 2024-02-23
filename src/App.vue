@@ -14,7 +14,7 @@
 
 <script>
 import heaterTitle from './components/title.vue'
-import indexVideoGirdPage from './components/indexVideoGirdPage.vue'
+import indexVideoGirdPage from './components/page/indexVideoGirdPage.vue'
 
 export default {
   name: 'App',
