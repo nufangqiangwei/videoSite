@@ -5,7 +5,7 @@ import CiLabel from '@/components/element/CiLabel.vue'
 <template>
   <div>
     111
-    <ci-label>111</ci-label>
+    <ci-label>番剧</ci-label>
   </div>
 </template>
 
