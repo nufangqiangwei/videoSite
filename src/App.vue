@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import CiLabel from '@/components/element/CiLabel.vue'
+// import CiLabel from '@/components/element/CiLabel.vue'
+
 </script>
 
 <template>
-  <div>
+  <router-view></router-view>
+  <!-- <div>
     111
     <ci-label>番剧</ci-label>
-  </div>
+  </div> -->
 </template>
 
 <style lang="less" scoped>

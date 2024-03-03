@@ -1,11 +1,21 @@
 <template>
   <div class="ci_label">
-    <i class="icon icon_close"></i>
+    <i v-if="isShowIcon" class="icon icon_close"></i>
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts" setup>
+// props
+interface Props {
+  /**
+   * 是否显示图标
+   */
+  isShowIcon?: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  isShowIcon: false
+})
 </script>
 
 <style lang="less" scoped>
@@ -17,6 +27,7 @@
     text-align: center;
     display: inline-block;
     border: 1px solid #F1F2F3;
+    box-sizing: border-box;
     color: #61666D;
     border-radius: 6px;
     transition: background-color .3s, color .3s;

@@ -17,4 +17,16 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    host: '127.0.0.1',
+    port: 8080,
+    proxy: {
+      //配置自定义代理规则
+      '/api': {
+        target: 'https://video.lushen.click',
+        changeOrigin: true, //是否跨域
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
+  }
 })

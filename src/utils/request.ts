@@ -1,3 +1,4 @@
+import { ResponseApiType } from "@/common/type"
 import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from "axios"
 
 class Axios {
@@ -6,7 +7,7 @@ class Axios {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: 'http://bilProxy.lusheng.click',
+      baseURL: 'https://video.lushen.click/api',
       timeout: 5000
     })
     this.requestInit()
@@ -30,8 +31,14 @@ class Axios {
     // 添加响应拦截器
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
-        return response
-      }, function (error: Error) {
+        // 处理系统异常错误码（持续补充）
+        const code = response.status
+        switch(code) {
+          case 500:
+
+        }
+        return response.data  as ResponseApiType
+      }, (error: Error) => {
         return Promise.reject(error)
       }
     )
