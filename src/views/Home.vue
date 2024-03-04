@@ -24,16 +24,24 @@ import VideoContainer from '@/components/VideoContainer.vue'
     left: 0;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     .home_background {
       height: 155px;
       background-color: #eaeaea;
+      flex-shrink: 0;
     }
     .home_channal_tag {
       height: 100px;
       padding: 0 60px;
+      max-width: 1980px;
+      margin: 0 auto;
+      flex-shrink: 0;
     }
     .home_channel_box {
-      flex: 1;
+      height: calc(100% - 255px);
+      max-width: 1980px;
+      margin: 0 auto;
+      
     }
   }
 </style>
