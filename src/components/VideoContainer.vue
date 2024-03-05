@@ -13,24 +13,50 @@
 
 <script lang="ts" setup>
 import { $Video } from '@/api/api'
-import { onMounted, reactive } from 'vue'
+import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { VideoInfoType } from './type';
-import { ResponseApiType } from '@/common/type';
 import { formatDate } from '@/utils/utils'
 
+// 视频列表
 const videoList = reactive({ arr: [] as Array<VideoInfoType> })
+// 加载视频 page
+const page = ref<number>(1)
+// 加载视频 size
+const size = ref<number>(30)
+// 加载状态
+const isLoaded = ref<boolean>(false)
 
-const getVideoList = async (): Promise<void> => {
-  console.log('111111111111')
-  const data = await $Video.getVideoList()
-  console.log(data, 'data')
-  if (data && data.code === 0) {
-    videoList.arr = data.data
+
+const getVideoList = async (isFromScroll?: boolean): Promise<void> => {
+  const data = await $Video.getVideoList(page.value, size.value)
+  if (data?.code === 0 && Array.isArray(data?.data)) {
+    const arr = data.data
+    videoList.arr.push(...arr)
+    isLoaded.value = Boolean(isFromScroll)
   }
 } 
 
+const onScroll = (): void => {
+  const root = document.querySelector('#video_home_id') as HTMLDivElement
+  const rootHeight = root.scrollHeight
+  if (isLoaded.value) return
+  if (window.innerHeight + root.scrollTop >= rootHeight) {
+    console.log('jiazai ')
+    isLoaded.value = true
+    page.value ++
+    getVideoList()
+  }
+}
+
 onMounted(() => {
   getVideoList()
+  const root = document.querySelector('#video_home_id') as HTMLDivElement
+  root.addEventListener('scroll', onScroll)
+})
+
+onBeforeUnmount(() => {
+  const root = document.querySelector('#video_home_id') as HTMLDivElement
+  root.removeEventListener('scroll', onScroll)
 })
 </script>
 

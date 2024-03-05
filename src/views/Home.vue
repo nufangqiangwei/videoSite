@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" id="video_home_id" @scroll="onScroll">
     <div class="home_background"></div>
     <div class="home_channal_tag">
       <header-channel></header-channel>
@@ -13,6 +13,14 @@
 <script lang="ts" setup>
 import HeaderChannel from '@/components/HeaderChannel.vue'
 import VideoContainer from '@/components/VideoContainer.vue'
+
+const onScroll = (): void => {
+  // console.log(e, 111)
+  // const root = document.querySelector('#video_home_id') as HTMLDivElement
+  // console.log(root.scrollHeight, 'scrollHeight')
+  // console.log(root.scrollTop, 'scrollTop')
+  // console.log( window.innerHeight, ' window.innerHeight')
+}
 </script>
 
 <style lang="less" scoped>
