@@ -1,9 +1,9 @@
 <template>
   <div class="video_container">
-    <div class="each_video" v-for="item in videoList.arr" :key="item.uuid" @click="openUrl(item.uuid)">
-      <img :src="item.coverUrl" alt="">
-      <div class="video_title">{{ item.title }}</div>
-      <div class="video_info">
+    <div class="each_video" v-for="item in videoList.arr" :key="item.uuid">
+      <img :src="item.coverUrl" alt="" @click="openUrl(item.uuid)">
+      <div class="video_title" @click="openUrl(item.uuid)">{{ item.title }}</div>
+      <div class="video_info" @click="openAuthorUrl(item.authorWebUid)">
         <span class="author">{{ item.authorName }}</span>
         <span class="date">{{ formatDate(item.uploadTime, false) }}</span>
       </div>
@@ -16,7 +16,7 @@ import { $Video } from '@/api/api'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { VideoInfoType } from './type';
 import { formatDate } from '@/utils/utils'
-import { EXTERNAL_URL } from '@/utils/constant';
+import { EXTERNAL_AUTHOR_URL, EXTERNAL_URL } from '@/utils/constant';
 
 // 视频列表
 const videoList = reactive({ arr: [] as Array<VideoInfoType> })
@@ -56,6 +56,13 @@ const openUrl = (uuid: string): void => {
   window.open(url)
 }
 
+// 打开用户主页 url 地址
+const openAuthorUrl = (uuid: string): void => {
+  const url = `${EXTERNAL_AUTHOR_URL}/${uuid}`
+  console.log(url, 'url')
+  window.open(url)
+}
+
 onMounted(() => {
   getVideoList()
   const root = document.querySelector('#video_home_id') as HTMLDivElement
@@ -76,11 +83,7 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   padding: 0 20px;
   align-content: flex-start;
-  // justify-content: start;
-  // display: grid;
-  // grid-auto-flow: column;
-  // grid-gap: 10px;
-  // grid-template-rows: repeat(4, 1fr);
+  // justify-content: space-between;
   .each_video {
     width: 258px;
     margin-right: 20px;

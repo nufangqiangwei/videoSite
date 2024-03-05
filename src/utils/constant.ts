@@ -5,7 +5,10 @@ import { ChannelType } from "@/components/type";
  */
 export const EXTERNAL_URL = 'https://www.bilibili.com/video'
 
-
+/**
+ * 跳转至用户主页地址
+ */
+export const EXTERNAL_AUTHOR_URL = 'https://space.bilibili.com'
 /**
  * 首页索引 channel 集合
  */
