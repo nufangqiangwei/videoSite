@@ -1,6 +1,12 @@
 import { ChannelType } from "@/components/type";
 
 /**
+ * 跳转至外部地址
+ */
+export const EXTERNAL_URL = 'https://www.bilibili.com/video'
+
+
+/**
  * 首页索引 channel 集合
  */
 export const CHANNEL_TYPE_LIST = [

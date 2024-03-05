@@ -1,6 +1,6 @@
 <template>
   <div class="video_container">
-    <div class="each_video" v-for="item in videoList.arr" :key="item.uuid">
+    <div class="each_video" v-for="item in videoList.arr" :key="item.uuid" @click="openUrl(item.uuid)">
       <img :src="item.coverUrl" alt="">
       <div class="video_title">{{ item.title }}</div>
       <div class="video_info">
@@ -16,6 +16,7 @@ import { $Video } from '@/api/api'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { VideoInfoType } from './type';
 import { formatDate } from '@/utils/utils'
+import { EXTERNAL_URL } from '@/utils/constant';
 
 // 视频列表
 const videoList = reactive({ arr: [] as Array<VideoInfoType> })
@@ -26,7 +27,7 @@ const size = ref<number>(30)
 // 加载状态
 const isLoaded = ref<boolean>(false)
 
-
+// 获取 video 视频列表
 const getVideoList = async (isFromScroll?: boolean): Promise<void> => {
   const data = await $Video.getVideoList(page.value, size.value)
   if (data?.code === 0 && Array.isArray(data?.data)) {
@@ -36,6 +37,7 @@ const getVideoList = async (isFromScroll?: boolean): Promise<void> => {
   }
 } 
 
+// 容器滚动事件
 const onScroll = (): void => {
   const root = document.querySelector('#video_home_id') as HTMLDivElement
   const rootHeight = root.scrollHeight
@@ -46,6 +48,12 @@ const onScroll = (): void => {
     page.value ++
     getVideoList()
   }
+}
+
+// 打开外部 url 地址
+const openUrl = (uuid: string): void => {
+  const url = `${EXTERNAL_URL}/${uuid}`
+  window.open(url)
 }
 
 onMounted(() => {
