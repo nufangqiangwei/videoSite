@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
   // overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  padding: 0 20px;
+  // padding: 0 20px;
   align-content: flex-start;
   // justify-content: space-between;
   .each_video {
@@ -128,6 +128,9 @@ onBeforeUnmount(() => {
       .date {
         margin-left: 15px;
       }
+    }
+    &:nth-child(5n) {
+      margin-right: 0;
     }
   }
 }
