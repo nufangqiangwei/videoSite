@@ -15,7 +15,7 @@
 import { $Video } from '@/api/api'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { VideoInfoType } from './type';
-import { formatDate } from '@/utils/utils'
+import { formatDate, formatDate2 } from '@/utils/utils'
 import { EXTERNAL_AUTHOR_URL, EXTERNAL_URL } from '@/utils/constant';
 
 // 视频列表
@@ -42,7 +42,7 @@ const onScroll = (): void => {
   const root = document.querySelector('#video_home_id') as HTMLDivElement
   const rootHeight = root.scrollHeight
   if (isLoaded.value) return
-  if (window.innerHeight + root.scrollTop >= rootHeight) {
+  if (window.innerHeight + root.scrollTop >= rootHeight - 100) {
     console.log('jiazai ')
     isLoaded.value = true
     page.value ++
@@ -128,9 +128,6 @@ onBeforeUnmount(() => {
       .date {
         margin-left: 15px;
       }
-    }
-    &:nth-child(5n) {
-      margin-right: 0;
     }
   }
 }
